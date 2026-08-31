@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart — Swashiv Fashion</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo-mark"><img src="assets/logo-mark.jpg" alt="Swashiv Fashion logo"></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="cart.html" class="cart-icon active" aria-label="Cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+    <a href="https://www.instagram.com/swashiv_05/" target="_blank" rel="noopener" class="nav-cta">Shop on Instagram</a>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section style="padding-top:150px;min-height:70vh;">
+  <div class="container">
+    <div class="section-head" style="text-align:left;margin-bottom:40px;">
+      <span class="eyebrow">Review Your Order</span>
+      <h2>Your Cart</h2>
+    </div>
+
+    <div id="cartContent"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Swashiv</div>
+        <p style="font-size:14px;max-width:280px;">Ready-to-wear ethnic co-ord sets, casual & office wear. Based in Mapusa, Goa — ships across India.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Get in Touch</h5>
+        <ul>
+          <li>Mapusa, Goa</li>
+          <li><a href="tel:+918408847963">84088 47963</a></li>
+          <li><a href="https://www.instagram.com/swashiv_05/" target="_blank" rel="noopener">@swashiv_05</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Swashiv Fashion. All rights reserved.</span>
+      <span>Orders online · Ships pan-India</span>
+    </div>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script src="chat-widget.js"></script>
+<script>
+function renderCart(){
+  const cart = getCart();
+  const el = document.getElementById('cartContent');
+
+  if(cart.length === 0){
+    el.innerHTML = `
+      <div class="empty-cart">
+        <p style="font-size:18px;margin-bottom:20px;">Your cart is empty.</p>
+        <a href="shop.html" class="btn btn-violet">Browse the Collection</a>
+      </div>`;
+    return;
+  }
+
+  const itemsHtml = cart.map((item, i) => {
+    const thumb = item.image
+      ? `<img src="${item.image}" alt="${item.name}">`
+      : `<div class="thumb-fallback"></div>`;
+    return `
+      <div class="cart-item">
+        ${thumb}
+        <div class="cart-item-body">
+          <h4>${item.name}</h4>
+          <div class="price">₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</div>
+          <div class="qty-control">
+            <button onclick="updateQty(${i}, ${item.qty - 1}); renderCart();">−</button>
+            <span>${item.qty}</span>
+            <button onclick="updateQty(${i}, ${item.qty + 1}); renderCart();">+</button>
+          </div>
+          <span class="remove-item" onclick="removeFromCart(${i}); renderCart();">Remove</span>
+        </div>
+      </div>`;
+  }).join('');
+
+  const total = getCartTotal();
+
+  el.innerHTML = `
+    <div class="cart-layout">
+      <div>${itemsHtml}</div>
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row"><span>Subtotal</span><span>₹${total}</span></div>
+        <div class="summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
+        <div class="summary-row total"><span>Total</span><span>₹${total}</span></div>
+        <a href="checkout.html" class="btn btn-violet" style="width:100%;justify-content:center;margin-top:20px;">Proceed to Checkout</a>
+      </div>
+    </div>`;
+}
+
+renderCart();
+</script>
+</body>
+</html>
