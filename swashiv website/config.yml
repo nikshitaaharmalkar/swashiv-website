@@ -1,0 +1,30 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: ""
+public_folder: "/"
+
+collections:
+  - name: "products"
+    label: "Products"
+    files:
+      - file: "products.json"
+        label: "Product Catalog"
+        name: "productCatalog"
+        fields:
+          - label: "Products"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Product Name", name: "name", widget: "string" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Ethnic Co-ord", value: "ethnic" }
+                  - { label: "Casual & Office", value: "casual" }
+              - { label: "Short Description", name: "description", widget: "string", required: false }
+              - { label: "Price (₹)", name: "price", widget: "number", value_type: "int", required: false }
+              - { label: "Product Photo", name: "image", widget: "image", required: false }

@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "name": "Floral Print Co-ord Set",
+      "category": "ethnic",
+      "description": "Crop top & flared pants",
+      "price": 1299,
+      "image": ""
+    },
+    {
+      "name": "Solid Kurta Co-ord Set",
+      "category": "ethnic",
+      "description": "Kurta & palazzo pair",
+      "price": 999,
+      "image": ""
+    },
+    {
+      "name": "Festive Embroidered Co-ord",
+      "category": "ethnic",
+      "description": "Occasion-ready three-piece set",
+      "price": 1899,
+      "image": ""
+    },
+    {
+      "name": "Everyday Shirt Dress",
+      "category": "casual",
+      "description": "Relaxed fit, all-day wear",
+      "price": 799,
+      "image": ""
+    },
+    {
+      "name": "Tailored Office Co-ord",
+      "category": "casual",
+      "description": "Blazer & trouser set",
+      "price": 1599,
+      "image": ""
+    },
+    {
+      "name": "Flowy Day Dress",
+      "category": "casual",
+      "description": "Light, breathable, everyday",
+      "price": 699,
+      "image": ""
+    }
+  ]
+}
