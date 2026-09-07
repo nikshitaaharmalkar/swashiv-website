@@ -1,12 +1,81 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swashiv — Product Manager</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Swashiv — Add Product</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; }
+  input, textarea, select, button { width: 100%; padding: 10px; margin-bottom: 12px; box-sizing: border-box; font-size: 15px; }
+  button { background: #b5791f; color: #fff; border: none; cursor: pointer; font-weight: 600; border-radius: 4px; }
+  label { font-size: 13px; color: #555; }
+  #msg { margin-top: 10px; font-size: 14px; }
+</style>
 </head>
 <body>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<h2>Add a Product</h2>
+
+<label>Admin password</label>
+<input type="password" id="password" placeholder="Password" />
+
+<label>Product name</label>
+<input type="text" id="name" placeholder="e.g. Floral Print Co-ord Set" />
+
+<label>Category</label>
+<select id="category">
+  <option value="ethnic">Ethnic Co-ord</option>
+  <option value="casual">Casual & Office</option>
+</select>
+
+<label>Description</label>
+<textarea id="description" rows="2" placeholder="Short description"></textarea>
+
+<label>Price (₹)</label>
+<input type="number" id="price" placeholder="1299" />
+
+<label>Image filename (optional)</label>
+<input type="text" id="image" placeholder="e.g. photo-clothing-rack.jpg" />
+
+<button id="submit">Add Product</button>
+<div id="msg"></div>
+
+<script>
+document.getElementById('submit').addEventListener('click', async () => {
+  const msg = document.getElementById('msg');
+  msg.textContent = "Saving...";
+  msg.style.color = "#555";
+  const body = {
+    password: document.getElementById('password').value,
+    product: {
+      name: document.getElementById('name').value,
+      category: document.getElementById('category').value,
+      description: document.getElementById('description').value,
+      price: document.getElementById('price').value,
+      image: document.getElementById('image').value,
+    }
+  };
+  try {
+    const res = await fetch('/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) {
+      msg.textContent = "Added! Check your Shop page in a few seconds.";
+      msg.style.color = "green";
+      document.getElementById('name').value = "";
+      document.getElementById('description').value = "";
+      document.getElementById('price').value = "";
+      document.getElementById('image').value = "";
+    } else {
+      msg.textContent = "Error: " + await res.text();
+      msg.style.color = "red";
+    }
+  } catch (e) {
+    msg.textContent = "Error: " + e.message;
+    msg.style.color = "red";
+  }
+});
+</script>
 </body>
 </html>
