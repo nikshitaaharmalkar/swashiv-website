@@ -49,33 +49,4 @@ document.getElementById('submit').addEventListener('click', async () => {
     product: {
       name: document.getElementById('name').value,
       category: document.getElementById('category').value,
-      description: document.getElementById('description').value,
-      price: document.getElementById('price').value,
-      image: document.getElementById('image').value,
-    }
-  };
-  try {
-    const res = await fetch('/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-    if (res.ok) {
-      msg.textContent = "Added! Check your Shop page in a few seconds.";
-      msg.style.color = "green";
-      document.getElementById('name').value = "";
-      document.getElementById('description').value = "";
-      document.getElementById('price').value = "";
-      document.getElementById('image').value = "";
-    } else {
-      msg.textContent = "Error: " + await res.text();
-      msg.style.color = "red";
-    }
-  } catch (e) {
-    msg.textContent = "Error: " + e.message;
-    msg.style.color = "red";
-  }
-});
-</script>
-</body>
-</html>
+      description:
